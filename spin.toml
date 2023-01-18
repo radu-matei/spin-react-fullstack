@@ -1,0 +1,26 @@
+spin_version = "1"
+authors = ["Radu Matei <radu.matei@fermyon.com>"]
+description = ""
+name = "spin-fullstack-react"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "frontend"
+source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v0.0.1/spin_static_fs.wasm", digest = "sha256:650376c33a0756b1a52cad7ca670f1126391b79050df0321407da9c741d32375" }
+files = [{ source = "frontend/build/", destination = "/" }]
+exclude_files = ["**/node_modules"]
+[component.trigger]
+route = "/..."
+[component.build]
+command = "npm run build"
+workdir = "frontend"
+
+[[component]]
+id = "api"
+source = "api/target/spin-http-js.wasm"
+[component.trigger]
+route = "/api/..."
+[component.build]
+command = "npm run build"
+workdir = "api"
